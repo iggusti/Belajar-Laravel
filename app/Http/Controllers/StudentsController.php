@@ -15,7 +15,12 @@ class StudentsController extends Controller
     public function index()
     {
         $students = Student::all();
+        dump($students);
+        $students = $students->sortBy('nama');
+        
+
         //return view('students.index', ['students' => $students]);
+       
         return view('students.index', compact('students'));
     }
 

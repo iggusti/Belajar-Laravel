@@ -25,6 +25,8 @@ Route::get('/mahasiswa', 'MahasiswaController@index');
 // Route::get('/students/{student}/edit', 'StudentsController@edit');
 // Route::patch('/students/{student}', 'StudentsController@update');
 
-Route::resource('students', 'StudentsCOntroller');
+Route::resource('students', 'StudentsController');
 
 Route::get('/about', 'PagesController@about');
+
+Route::get('/books', 'BooksController@index');
