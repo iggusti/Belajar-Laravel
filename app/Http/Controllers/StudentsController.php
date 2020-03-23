@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Validator,Redirect,Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Session;
 
 class StudentsController extends Controller
 {
@@ -12,6 +16,23 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function login()
+    {
+        return view('index');
+    }  
+
+    public function logout() {
+        // Session::flush();
+        // Auth::logout();
+        return Redirect('/');
+    }
+
+    public function registration()
+    {
+        return view('registration');
+    }
+
     public function index()
     {
         $students = Student::all();
@@ -45,12 +66,13 @@ class StudentsController extends Controller
         // Validation
         $request->validate([
             'nama' => 'required',
-            'nim' => 'required|size:10',
-            'email' => 'required',
-            'jurusan' => 'required'
-        ]);       
+            'nim' => 'required',
+            'email' => 'required|email|unique:students',
+            'password' => 'required',
+            'jurusan' => 'required',
+            ]);
 
-        //cara 1
+        // cara 1
         // $student = new Student;
         // $student->nama = $request->nama;
         // $student->nim = $request->nim;
@@ -59,18 +81,54 @@ class StudentsController extends Controller
 
         // $student->save();
         
+        // cara 2
         // Student::create([
         //     'nama' => $request->nama,
         //     'nim' => $request->nim,
         //     'email' => $request->email,
         //     'jurusan' => $request->jurusan
         // ]);
+        
+        // cara 3
+        // Student::create($request->all());
 
-        Student::create($request->all());
+        Student::create([
+            'nama' => $request['nama'],
+            'nim' => $request['nim'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'jurusan' => $request['jurusan']
+          ]);
 
         return redirect('/students')->with('status', 'Data Mahasiswa Berhasil Ditambahkan!');
     }
 
+    public function postRegistration(Request $request)
+    {
+        // Validation
+        $request->validate([
+            'nama' => 'required',
+            'nim' => 'required',
+            'email' => 'required|email|unique:students',
+            'password' => 'required',
+            'jurusan' => 'required',
+            ]);
+
+            Student::create([
+                                            'nama' => $request['nama'],
+                                            'nim' => $request['nim'],
+                                            'email' => $request['email'],
+                                            'password' => Hash::make($request['password']),
+                                            'jurusan' => $request['jurusan']
+          ]);
+
+          return Redirect::to('/home')->withSuccess('Great! You have Successfully loggedin');
+    }
+
+    public function validation()
+    {
+        
+    }
     /**
      * Display the specified resource.
      *

@@ -18,8 +18,11 @@ class CreateStudentsTable extends Migration
             $table->string('nama');
             $table->char('nim', 10)->unique();
             $table->string('email')->unique();
+            $table->string('password');
             $table->string('jurusan');
+            $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

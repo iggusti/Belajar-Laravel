@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Form</title>
+<title>Registration Form - Tutsmake.com</title>
  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,34 +23,58 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Welcome back!</h3>
-               <form action="/post-login" method="POST" id="logForm">
- 
+              <h3 class="login-heading mb-4">Register here!</h3>
+               <form action="/post-registration" method="POST" id="regForm">
                  {{ csrf_field() }}
+                <div class="form-label-group">
+                  
+                  <input type="text" id="inputNama" name="nama" class="form-control" placeholder="Full name" autofocus>
+                  <label for="inputName">Nama</label>
+                  @if ($errors->has('nama'))
+                  <span class="error">{{ $errors->first('nama') }}</span>
+                  @endif       
+                </div> 
  
                 <div class="form-label-group">
+                  
+                  <input type="nim" name="nim" id="inputNim" class="form-control" placeholder="NIM" >
+                  <label for="inputNim">NIM</label>
+                  @if ($errors->has('nim'))
+                  <span class="error">{{ $errors->first('nim') }}</span>
+                  @endif    
+                </div> 
+
+                <div class="form-label-group">
+                  
                   <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" >
                   <label for="inputEmail">Email address</label>
- 
                   @if ($errors->has('email'))
                   <span class="error">{{ $errors->first('email') }}</span>
                   @endif    
                 </div> 
  
                 <div class="form-label-group">
+                  
                   <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
                   <label for="inputPassword">Password</label>
-                   
                   @if ($errors->has('password'))
                   <span class="error">{{ $errors->first('password') }}</span>
                   @endif  
                 </div>
- 
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign In</button>
+
+                <div class="form-label-group">
+                  
+                  <input type="jurusan" name="jurusan" id="inputJurusan" class="form-control" placeholder="Jurusan" >
+                  <label for="inputJurusan">Jurusan</label>
+                  @if ($errors->has('jurusan'))
+                  <span class="error">{{ $errors->first('jurusan') }}</span>
+                  @endif    
+                </div> 
                 
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2; position: relative; top: 100px;" type="submit">Sign Up</button>
+
                 <div class="text-center">If you have an account?
-                  <a class="small" href="/registration">Sign Up</a>
-                </div>
+                  <a class="small" href="/">Sign In</a></div>
               </form>
             </div>
           </div>

@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@home');
+Route::get('/', 'StudentsController@login');
+Route::post('/post-login', 'StudentsController@postLogin'); 
+Route::get('/registration', 'StudentsController@registration');
+Route::post('/post-registration', 'StudentsController@postRegistration'); 
+Route::get('/logout', 'StudentsController@logout');
+
+Route::get('/home', 'PagesController@home');
 
 Route::get('/mahasiswa', 'MahasiswaController@index');
 
